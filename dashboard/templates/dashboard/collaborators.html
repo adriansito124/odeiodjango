@@ -1,0 +1,223 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Document</title>
+</head>
+
+<style>
+    .section-bg {
+        background-color: #111C44;
+    }
+
+    .artura {
+        min-height: 100vh;
+    }
+
+    .main-bg {
+        background-color: #0B1437;
+    }
+
+    .linha {
+        height: 1px;
+        width: 100%;
+        background-color: #ffffff;
+    }
+
+    .size1 {
+        height: 32px;
+        width: 32px;
+    }
+
+    .size2 {
+        height: 25px;
+        width: 25px;
+    }
+
+    .linko {
+        color: #ffffff;
+        text-decoration: none;
+    }
+
+    .linko:hover {
+        color: #5c99f4;
+    }
+
+    .cubio {
+        height: 100px;
+        width: 220px;
+        background-color: #111C44;
+        border-radius: 20px;
+    }
+
+    .grafico {
+        max-width: 400px;
+        height: 250px;
+    }
+
+    .circlu {
+        height: 50px;
+        width: 50px;
+        background-color: #1B254B;
+        border-radius: 100%;
+    }
+
+
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        max-height: 100vh;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .some {
+        background-color: transparent;
+        border: none;
+    }
+
+    main {
+
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        display: flex;
+
+    }
+</style>
+
+<body>
+    <main class="d-flex flex-row main-bg">
+        <Section class="d-flex flex-column section-bg artura">
+            <div class="d-flex flex-row gap-2 text-white p-4">
+                <h3 class="fw-bolder">NONAME</h3>
+                <h3 class="fw-normal">PARK</h3>
+            </div>
+            <div class="linha"></div>
+            <div class="d-flex align-items-start flex-column mt-4">
+                <div class="d-flex mt-4 ms-4 fs-5 align-items-center justify-content-center">
+                    <img class="size1" src="{% static 'casa.png' %}">
+                    <a class="linko ms-2" href="{% url 'index' %}">Dashboard</a>
+                </div>
+                <div class="d-flex mt-4 ms-4 fs-5 align-items-center justify-content-center">
+                    <img class="size1" src="{% static 'carro.png' %}">
+                    <a class="linko ms-2" href="{% url 'park' %}">View Park</a>
+                </div>
+                <div class="d-flex mt-4 ms-4 fs-5 align-items-end justify-content-end">
+                    <img class="size1" src="{% static 'user.png' %}">
+                    <a class="linko ms-2" href="">Collaborators</a>
+                </div>
+            </div>
+        </Section>
+        <Section class="main-bg artura">
+            <div class="m-4">
+                <h1 class="text-white">Collaborators</h1>
+                <div class="mt-4">
+                    <table class="table table-light table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr class="text-center">
+                                <th>Card</th>
+                                <th>Nome</th>
+                                <th>Editar</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+                            {% for card in cards %}
+                            <tr data-id="{{ card.id }}">
+                                <td>{{ card.card }}</td>
+                                <td>{{ card.name }}</td>
+                                <td>
+                                    <button class="btn btn-dark" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal"
+                                        onclick="openModal('{{ card.id }}', '{{ card.name }}')">
+                                        🖋️
+                                    </button>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center">Nenhum colaborador encontrado.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </Section>
+    </main>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Name</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="docId"> <!-- Armazena o ID do documento -->
+                    <label for="nameInput" class="form-label">Name:</label>
+                    <input id="nameInput" class="form-control" type="text" placeholder="Insert new name">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveName">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+<script>
+    
+    function openModal(docId, name) {
+        document.getElementById('docId').value = docId; 
+        document.getElementById('nameInput').value = name; 
+    }
+
+    // Função para salvar o novo nome
+    document.getElementById('saveName').addEventListener('click', async () => {
+        const docId = document.getElementById('docId').value;
+        const newName = document.getElementById('nameInput').value;
+
+        try {
+            // Envia o dado para o backend
+            const response = await fetch('/update-name/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}' 
+                },
+                body: JSON.stringify({ id: docId, name: newName })
+            });
+
+            if (response.ok) {
+                
+                document.querySelector(`tr[data-id="${docId}"] td:nth-child(2)`).textContent = newName;
+
+                // Fecha o modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById('exampleModal'));
+                modal.hide();
+            } else {
+                alert('Erro ao atualizar o nome.');
+            }
+        } catch (error) {
+            console.error('Erro:', error);
+            alert('Erro ao conectar com o servidor.');
+        }
+    });
+
+</script>
+
+</html>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>

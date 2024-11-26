@@ -1,0 +1,277 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Document</title>
+</head>
+
+<style>
+    .section-bg {
+        background-color: #111C44;
+    }
+
+    .artura {
+        min-height: 100vh;
+    }
+
+    .main-bg {
+        background-color: #0B1437;
+    }
+
+    .linha {
+        height: 1px;
+        width: 100%;
+        background-color: #ffffff;
+    }
+
+    .size1 {
+        height: 32px;
+        width: 32px;
+    }
+
+    .size2 {
+        height: 25px;
+        width: 25px;
+    }
+
+    .linko {
+        color: #ffffff;
+        text-decoration: none;
+    }
+
+    .linko:hover {
+        color: #5c99f4;
+    }
+
+    .cubio {
+        height: 100px;
+        width: 220px;
+        background-color: #111C44;
+        border-radius: 20px;
+    }
+
+    .grafico {
+        max-width: 400px;
+        height: 250px;
+    }
+
+    .circlu {
+        height: 50px;
+        width: 50px;
+        background-color: #1B254B;
+        border-radius: 100%;
+    }
+
+
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        max-height: 100vh;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .some {
+        background-color: transparent;
+        border: none;
+    }
+
+    main {
+
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        display: flex;
+
+    }
+
+    .park-spaco {
+        /* background-color: #2d375e; */
+        width: 100%;
+        padding: 40px;
+    }
+
+    .parkbg {
+        background-color: #3d4564;
+        width: 100%;
+        height: 100%;
+    }
+
+    .areaa {
+        background-color: #a9aece;
+        width: 60%;
+        height: 400px;
+    }
+
+    .areab {
+        background-color: #cbcea9;
+        width: 40%;
+        height: 400px;
+    }
+
+    .vagaa {
+        background-color: #0B1437;
+    }
+
+    .lineup {
+        width: 80%;
+        height: 20px;
+    }
+
+    .colline {
+        width: 20px;
+        height: 100%;
+    }
+
+    .lineup {
+        width: 80%;
+        height: 20px;
+    }
+
+    .colline {
+        width: 20px;
+        height: 100%;
+    }
+
+    .dist {
+        width: 80%;
+    }
+
+    .circluvaga {
+        height: 50px;
+        width: 50px;
+        background-color: #2a9436;
+        border-radius: 100%;
+        color: transparent;
+    }
+</style>
+
+<body>
+    <main class="d-flex flex-row main-bg">
+        <Section class="d-flex flex-column section-bg artura ">
+            <div class="d-flex flex-row gap-2 text-white p-4">
+                <h3 class="fw-bolder">NONAME</h3>
+                <h3 class="fw-normal">PARK</h3>
+            </div>
+            <div class="linha"></div>
+            <div class="d-flex align-items-start flex-column mt-4">
+                <div class="d-flex mt-4 ms-4 fs-5 align-items-center justify-content-center">
+                    <img class="size1" src="{% static 'casa.png' %}">
+                    <a class="linko ms-2" href="{% url 'index' %}">Dashboard</a>
+                </div>
+                <div class="d-flex mt-4 ms-4 fs-5 align-items-center justify-content-center">
+                    <img class="size1" src="{% static 'carro.png' %}">
+                    <a class="linko ms-2" href="">View Park</a>
+                </div>
+                <div class="d-flex mt-4 ms-4 fs-5 align-items-end justify-content-end">
+                    <img class="size1" src="{% static 'user.png' %}">
+                    <a class="linko ms-2" href="{% url 'collaborators' %}">Collaborators</a>
+                </div>
+            </div>
+        </Section>
+        <Section class="main-bg artura park-spaco">
+            <div class="parkbg d-flex flex-column p-5">
+                <div class="d-flex flex-row">
+                    <div class="areaa p-4 d-flex flex-column align-items-center" id="vaga1-container">
+                        <h2>A</h2>
+                        <div class="vagaa lineup"></div>
+                        <div class="d-flex dist h-100 flex-row justify-content-between">
+                            <div class="vagaa colline"></div>
+                            <div class="circluvaga mt-3" id="v1"><p id="vaga_1">{{ vaga1 }}</p></div>
+                            <div class="vagaa colline"></div>
+                            <div class="circluvaga mt-3" id="v2"><p id="vaga_2">{{ vaga2 }}</p></div>
+                            <div class="vagaa colline"></div>
+                        </div>
+                    </div>
+                    <div class="areab p-4 d-flex flex-column align-items-center" id="vaga2-container">
+                        <h2>B</h2>
+                        <div class="vagaa lineup"></div>
+                        <div class="d-flex dist h-100 flex-row justify-content-between">
+                            <div class="vagaa colline"></div>
+                            <div class="circluvaga mt-3" id="vaga_3"></div>
+                            <div class="vagaa colline"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex flex-row justify-content-between mt-3">
+
+                    <div class="cubio d-flex align-items-center ps-3">
+                        <div class="circlu d-flex align-items-center justify-content-center">
+                            <h3 class="text-white">A</h3>
+                        </div>
+                        <h2 class="text-white ms-5 " id="area_a">{{ area_a }}</h2>
+                    </div>
+                    <div class="cubio d-flex align-items-center ps-3">
+                        <div class="circlu d-flex align-items-center justify-content-center">
+                            <img class="size2" src="{% static 'grafico.png' %}">
+                        </div>
+                        <h2 class="text-white ms-5">{{ vagas_disponiveis }}</h2>
+                    </div>
+                    <div class="cubio d-flex align-items-center ps-3">
+                        <div class="circlu d-flex align-items-center justify-content-center">
+                            <h3 class="text-white">B</h3>
+                        </div>
+                        <h2 class="text-white ms-5" id="area_b">{{ area_b }}</h2>
+                    </div>
+
+
+                </div>
+            </div>
+        </Section>
+    </main>
+
+</body>
+
+<script type="text/javascript">
+
+
+    window.onload = function () {
+        var area_aValue = parseInt(document.getElementById("area_a").innerText);
+        var vaga2Value = parseInt(document.getElementById("area_b").innerText);
+        var vaga2Container = document.getElementById("vaga2-container");
+        var vaga1Container = document.getElementById("vaga1-container");
+        var vaga_3 = document.getElementById("vaga_3");
+        var vaga_1 = parseInt(document.getElementById("vaga_1").innerText);
+        var vaga_2 = parseInt(document.getElementById("vaga_2").innerText);
+
+        if (vaga_1 === 0) {
+            v1.style.backgroundColor = "red"
+        }
+        else {
+            v1.style.backgroundColor = "#2a9436";
+        }
+
+        if (vaga_2 === 0) {
+            v2.style.backgroundColor = "red"
+        }
+        else {
+            v2.style.backgroundColor = "#2a9436";
+        }
+
+        if (area_aValue === 0) {
+            vaga1Container.style.backgroundColor = "#cea9a9";
+        }
+        else {
+            vaga1Container.style.backgroundColor = "#a9aece";
+        }
+
+        if (vaga2Value === 0) {
+            vaga2Container.style.backgroundColor = "#cea9a9";
+            vaga_3.style.backgroundColor = "red";
+        }
+        else {
+            vaga2Container.style.backgroundColor = "#cbcea9";
+            vaga_3.style.backgroundColor = "#2a9436";
+        }
+    }
+</script>
+
+</html>
